@@ -17,9 +17,12 @@ let pokemonRepository = (function () {
   function addListItem(pokemon) {
     let pokemonListElement = document.querySelector(".pokemon-list");
     let listpokemon = document.createElement("li");
+    listpokemon.classList.add("list-group-item"); // Add list-group-item class
+
     let button = document.createElement("button");
     button.innerText = pokemon.name;
-    button.classList.add("pokemon-button");
+    button.classList.add("pokemon-button", "btn", "btn-primary"); // Add Bootstrap button classes
+
     listpokemon.appendChild(button);
     pokemonListElement.appendChild(listpokemon);
     button.addEventListener("click", function () {
@@ -65,60 +68,13 @@ let pokemonRepository = (function () {
 
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      showModal(pokemon.name, `Height: ${pokemon.height}m`, pokemon.imageUrl);
+      $("#pokemonModal").modal("show");
+      document.querySelector("#modal-pokemon-name").innerText = pokemon.name;
+      document.querySelector(
+        "#modal-pokemon-height"
+      ).innerText = `Height: ${pokemon.height}m`;
+      document.querySelector("#modal-pokemon-image").src = pokemon.imageUrl;
     });
-  }
-
-  function showModal(name, height, imageUrl) {
-    let modalContainer = document.querySelector("#modal-container");
-
-    // Clear all existing modal content
-    modalContainer.innerHTML = "";
-
-    let modal = document.createElement("div");
-    modal.classList.add("modal-content");
-
-    // Add the new modal content
-    let closeButtonElement = document.createElement("span");
-    closeButtonElement.classList.add("close");
-    closeButtonElement.innerText = "×";
-
-    let nameElement = document.createElement("h1");
-    nameElement.innerText = name;
-
-    let heightElement = document.createElement("p");
-    heightElement.innerText = height;
-
-    let imageElement = document.createElement("img");
-    imageElement.src = imageUrl;
-    imageElement.id = "pokemon-image";
-
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(nameElement);
-    modal.appendChild(heightElement);
-    modal.appendChild(imageElement);
-    modalContainer.appendChild(modal);
-
-    modalContainer.style.display = "block";
-
-    closeButtonElement.addEventListener("click", hideModal);
-
-    window.addEventListener("click", (e) => {
-      if (e.target === modalContainer) {
-        hideModal();
-      }
-    });
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modalContainer.style.display === "block") {
-        hideModal();
-      }
-    });
-  }
-
-  function hideModal() {
-    let modalContainer = document.querySelector("#modal-container");
-    modalContainer.style.display = "none";
   }
 
   return {
