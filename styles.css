@@ -10,21 +10,22 @@ body {
 }
 
 .navbar {
-  background-color: #ffde00;
+  background-color: #ffde00 !important;
+  border-bottom: none;
 }
 
 .navbar-brand {
-  color: #3b4cca;
+  color: #3b4cca !important;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .navbar-nav .nav-item .nav-link {
-  color: #3b4cca;
+  color: #3b4cca !important;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
-  color: #1d2a6f;
+  color: #1d2a6f !important;
 }
 
 .pokemon-list {
@@ -36,6 +37,10 @@ body {
   margin: 0 auto;
   width: 90%;
   max-width: 1200px;
+}
+
+.pokemon-list li {
+  background-color: #ffde00;
 }
 
 .pokemon-button {
